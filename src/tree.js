@@ -3,11 +3,10 @@
  */
 
 var Tree = function (value) {
-  var newTree = {};
+  var newTree = Object.create(treeMethods);
+
   newTree.value = value;
   newTree.children = [];
-  newTree.addChild = treeMethods.addChild;
-  newTree.contains = treeMethods.contains;
 
   return newTree;
 };
@@ -15,15 +14,14 @@ var Tree = function (value) {
 var treeMethods = {};
 
 treeMethods.addChild = function (value) {
-  const obj = new Tree(value);
-  this.children.push(obj);
+  this.children.push(Tree(value));
 };
 
 treeMethods.contains = function (target) {
-  let check = false;
-  if (target === this.children[0].value) check = true;
-  // this.children.forEach(element => {
-  //   if(element.value === target) check = true;
-  // });
-  return check;
+  for (let i = 0; i < this.children.length; i++) {
+    if (this.children[i].value === target) return true;
+    else if (this.children[i].children.length && this.children[i].contains(target)) return true;
+  }
+  
+  return false;
 };
