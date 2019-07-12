@@ -1,8 +1,7 @@
 /*
  * Complexity: 시간 복잡도에 대해서 생각해보세요.
  */
-
-var Set = function () {
+var Set = function() {
   var set = Object.create(setPrototype);
   set._storage = [];
   return set;
@@ -10,20 +9,17 @@ var Set = function () {
 
 var setPrototype = {};
 
-setPrototype.add = function (item) {
+setPrototype.add = function(item) {
   this._storage.push(item);
 };
 
-setPrototype.contains = function (item) {
-  let check = false;
-  this._storage.forEach(element => {
-    if (element === item) check = true;
-  });
-  return check;
+setPrototype.contains = function(item) {
+  if (this._storage.find(e => e === item)) return true;
+  return false;
 };
 
-setPrototype.remove = function (item) {
-  this._storage.forEach((e, i) => {
-    if (e === item) this._storage.splice(i, 1);
-  });
+setPrototype.remove = function(item) {
+  this._storage.find((e, i) => {
+    if (e === item) this._storage[i] = undefined;
+  })
 };
