@@ -8,26 +8,33 @@ var LinkedList = function () {
   list.tail = null;
 
   list.addToTail = function (value) {
-    this.tail = Node(value);
-    if (!this.head) this.head = Node(value);
-    else this.head.next = value;
+    const newNode = new Node(value);
+    if (!list.head) {
+      list.head = newNode;
+      list.tail = newNode;
+    } else {
+      const prevTail = list.tail
+      list.tail = newNode;
+      prevTail.next = newNode;
+    }
   };
 
   list.removeHead = function () {
-    this.head.value = this.head.next;
-    this.head.next = this.tail.value;
+    const curHeadValue = list.head.value;
+    list.head = list.head.next;
 
-    return this.head.next;
+    return curHeadValue;
   };
 
   list.contains = function (target) {
-    let check = false;
+    let currentNode = list.head;
 
-    Object.values(this.head).forEach(element => {
-      if (target === element) check = true;
-    });
+    while (currentNode) {
+      if (currentNode.value === target) return true;
+      currentNode = currentNode.next;
+    }
 
-    return check;
+    return false;
   };
 
   return list;
