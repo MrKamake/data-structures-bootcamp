@@ -10,17 +10,16 @@ var Set = function() {
 var setPrototype = {};
 
 setPrototype.add = function(item) {
-  if (this._storage.find(ele => ele === item)) return;
+  if (this._storage.includes(item)) return;
   this._storage.push(item);
 };
 
 setPrototype.contains = function(item) {
-  if (this._storage.find(element => element === item)) return true;
-  return false;
+  return this._storage.includes(item);
 };
 
 setPrototype.remove = function(item) {
-  this._storage.find((element, index) => {
+  this._storage.forEach((element, index) => {
     if (element === item) this._storage[index] = undefined;
-  })
+  });
 };
