@@ -8,19 +8,19 @@ var LinkedList = function () {
   list.tail = null;
 
   list.addToTail = function (value) {
-    const newNode = new Node(value);
+    const newNode = Node(value);
     if (!list.head) {
       list.head = newNode;
       list.tail = newNode;
     } else {
-      const prevTail = list.tail
+      list.tail.next = newNode;
       list.tail = newNode;
-      prevTail.next = newNode;
     }
   };
 
   list.removeHead = function () {
     const curHeadValue = list.head.value;
+    if (!curHeadValue) return undefined;
     list.head = list.head.next;
 
     return curHeadValue;

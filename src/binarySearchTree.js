@@ -32,17 +32,13 @@ bstPrototype.contains = function (value) {
   const currentValue = currentNode.value;
 
   if (currentValue === value) return true;
-  if (currentValue > value) {
-    return !currentNode.left ? false : currentNode.left.contains(value);
-  }
-  if (currentValue < value) {
-    return !currentNode.right ? false : currentNode.right.contains(value);
-  }
+  if (currentValue > value) return !!currentNode.left && currentNode.left.contains(value);
+  if (currentValue < value) return !!currentNode.right && currentNode.right.contains(value);
 };
-bstPrototype.depthFirstLog = function (func) {
+bstPrototype.depthFirstLog = function (getBstValues) {
   const currentNode = this;
 
-  func(currentNode.value);
-  if (currentNode.left) currentNode.left.depthFirstLog(func);
-  if (currentNode.right) currentNode.right.depthFirstLog(func);
+  getBstValues(currentNode.value);
+  if (currentNode.left) currentNode.left.depthFirstLog(getBstValues);
+  if (currentNode.right) currentNode.right.depthFirstLog(getBstValues);
 };
